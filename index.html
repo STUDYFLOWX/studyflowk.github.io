@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyFlow – Your Personal Study Planner</title>
+    <meta name="description" content="StudyFlow is a personal study planner with tasks, timetable, Pomodoro timer, progress tracking and study files.">
+    <meta name="theme-color" content="#080b12">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+    <div class="brand">
+        <div class="brand-logo" aria-label="StudyFlow logo">✦</div>
+
+        <div>
+            <h1>StudyFlow</h1>
+            <p>Learn • Focus • Grow</p>
+        </div>
+    </div>
+
+    <div class="nav-links">
+         <a href="#dashboard">Dashboard</a>
+    <a href="#tasks">Tasks</a>
+    <a href="#timetable">Timetable</a>
+    <a href="#pomodoro">Pomodoro</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#ai-chat" class="ai-nav-button">✦ AI Assistant</a>
+    <a href="#settings">Settings</a>
+    </div>
+</nav>
+
+
+<main>
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="hero-section">
+    <div class="hero-content">
+        <span class="small-label">YOUR PERSONAL STUDY PLANNER</span>
+
+        <h2>Welcome back!</h2>
+
+        <p id="date"></p>
+
+        <p class="hero-description">
+            Plan your studies, stay focused and track your progress with StudyFlow.
+        </p>
+    </div>
+</section>
+
+<!-- ================= STATS ================= -->
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+        <span class="stat-icon">✦</span>
+        <div>
+            <p>Total Tasks</p>
+            <h3 id="totalTasks">0</h3>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-icon">✓</span>
+        <div>
+            <p>Completed</p>
+            <h3 id="completedTasks">0</h3>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-icon">◉</span>
+        <div>
+            <p>Study Time</p>
+            <h3><span id="todayStudyTime">0</span> min</h3>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-icon">✶</span>
+        <div>
+            <p>Sessions</p>
+            <h3 id="todaySessions">0</h3>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= TASKS ================= -->
+
+<section id="tasks" class="section-card">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">TASK MANAGER</span>
+            <h2>✦ My Tasks</h2>
+            <p>Add and manage your study tasks.</p>
+        </div>
+
+        <div class="task-count">
+            <span id="taskCount">0</span> Tasks
+        </div>
+    </div>
+
+
+    <div class="task-form">
+
+        <div class="input-group">
+            <label for="taskInput">Task</label>
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="e.g. Complete Chemistry revision"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="subjectInput">Subject</label>
+            <input
+                type="text"
+                id="subjectInput"
+                placeholder="e.g. Chemistry"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="priorityInput">Priority</label>
+
+            <select id="priorityInput">
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="dateInput">Date</label>
+            <input type="date" id="dateInput">
+        </div>
+
+        <div class="input-group">
+            <label for="timeInput">Time</label>
+            <input type="time" id="timeInput">
+        </div>
+
+        <button type="button" class="primary-button" onclick="addTask()">
+            + Add Task
+        </button>
+
+    </div>
+
+
+    <div id="taskList" class="task-list">
+        <div class="empty-state">
+            <span>✧</span>
+            <p>No tasks yet. Add your first task!</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= TIMETABLE ================= -->
+
+<section id="timetable" class="section-card">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">WEEKLY PLANNER</span>
+            <h2>⬩➤ Weekly Timetable</h2>
+            <p>Create your weekly study schedule.</p>
+        </div>
+    </div>
+
+
+    <div class="task-form">
+
+        <div class="input-group">
+            <label for="dayInput">Day</label>
+
+            <select id="dayInput">
+                <option value="">Select day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="timetableSubject">Subject</label>
+            <input
+                type="text"
+                id="timetableSubject"
+                placeholder="e.g. Physics"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="startTime">Start Time</label>
+            <input type="time" id="startTime">
+        </div>
+
+        <div class="input-group">
+            <label for="endTime">End Time</label>
+            <input type="time" id="endTime">
+        </div>
+
+        <button type="button" class="primary-button" onclick="addSchedule()">
+            + Add Session
+        </button>
+
+    </div>
+
+
+    <div id="timetableList" class="timetable-list">
+        <div class="empty-state">
+            <span>●</span>
+            <p>No timetable sessions yet.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ================= POMODORO ================= -->
+
+<section id="pomodoro" class="section-card">
+
+    <div class="section-heading center-heading">
+        <div>
+            <span class="section-label">FOCUS TIMER</span>
+            <h2> Pomodoro Timer</h2>
+            <p>Focus on your studies one session at a time.</p>
+        </div>
+    </div>
+
+
+    <div class="pomodoro-card">
+
+        <div class="timer-mode-buttons">
+
+            <button
+                type="button"
+                id="studyModeButton"
+                class="mode-button active"
+                onclick="setStudyMode()"
+            >
+                ✦ Study
+            </button>
+
+            <button
+                type="button"
+                id="breakModeButton"
+                class="mode-button"
+                onclick="setBreakMode()"
+            >
+                ☕ Break
+            </button>
+
+        </div>
+
+
+        <div id="timerMode" class="timer-mode">
+            ✦ Study Time
+        </div>
+
+        <div id="timer" class="timer">
+            01:00
+        </div>
+
+        <div class="timer-progress">
+            <div id="timerProgressFill"></div>
+        </div>
+
+
+        <div class="timer-controls">
+
+            <button
+                type="button"
+                class="primary-button"
+                onclick="startTimer()"
+            >
+                ▶ Start
+            </button>
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="pauseTimer()"
+            >
+                ⏸ Pause
+            </button>
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="resetTimer()"
+            >
+                ↻ Reset
+            </button>
+
+        </div>
+
+
+        <div class="timer-settings">
+
+            <div>
+                <label for="studyDuration">Study Duration</label>
+
+                <select id="studyDuration" onchange="changeStudyDuration()">
+                    <option value="1">1 minute</option>
+                    <option value="25">25 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">60 minutes</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <input
+                    type="number"
+                    id="customStudyTime"
+                    placeholder="Custom minutes"
+                    min="1"
+                    max="180"
+                    style="display:none;"
+                >
+            </div>
+
+
+            <div>
+                <label for="breakDuration">Break Duration</label>
+
+                <select id="breakDuration" onchange="changeBreakDuration()">
+                    <option value="5">5 minutes</option>
+                    <option value="10">10 minutes</option>
+                    <option value="15">15 minutes</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <input
+                    type="number"
+                    id="customBreakTime"
+                    placeholder="Custom minutes"
+                    min="1"
+                    max="60"
+                    style="display:none;"
+                >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<section class="section-card">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">YOUR PERFORMANCE</span>
+            <h2>✦ Progress Dashboard</h2>
+            <p>See how your study routine is progressing.</p>
+        </div>
+    </div>
+
+
+    <div class="progress-grid">
+
+        <div class="progress-card">
+            <p>Tasks Completed</p>
+            <h3 id="progressTasks">0 / 0</h3>
+        </div>
+
+        <div class="progress-card">
+            <p>Total Study Time</p>
+            <h3><span id="progressStudyTime">0</span> min</h3>
+        </div>
+
+        <div class="progress-card">
+            <p>Overall Progress</p>
+            <h3><span id="progressPercentage">0</span>%</h3>
+
+            <div class="progress-bar">
+                <div id="progressBarFill"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="subject-progress-section">
+
+        <h3>Subject Progress</h3>
+
+        <div id="subjectProgress"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SUBJECTS ================= -->
+
+<section id="subjects" class="section-card">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">STUDY MATERIAL</span>
+            <h2>✦ Subjects & Study Files</h2>
+            <p>Organize your study materials by subject.</p>
+        </div>
+    </div>
+
+
+    <div class="subjects-grid">
+
+        <div class="subject-card" onclick="openSubject('Physics')">
+            <div class="subject-icon">⚡</div>
+            <h3>Physics</h3>
+            <p>Notes & materials</p>
+            <span id="count-Physics">0 files</span>
+        </div>
+
+
+        <div class="subject-card" onclick="openSubject('Chemistry')">
+            <div class="subject-icon">✴︎</div>
+            <h3>Chemistry</h3>
+            <p>Notes & materials</p>
+            <span id="count-Chemistry">0 files</span>
+        </div>
+
+
+        <div class="subject-card" onclick="openSubject('Mathematics')">
+            <div class="subject-icon">📐</div>
+            <h3>Mathematics</h3>
+            <p>Notes & materials</p>
+            <span id="count-Mathematics">0 files</span>
+        </div>
+
+
+        <div class="subject-card" onclick="openSubject('Computer Science')">
+            <div class="subject-icon">𑁍</div>
+            <h3>Computer Science</h3>
+            <p>Notes & materials</p>
+            <span id="count-Computer Science">0 files</span>
+        </div>
+
+
+        <div class="subject-card" onclick="openSubject('English')">
+            <div class="subject-icon">◆︎</div>
+            <h3>English</h3>
+            <p>Notes & materials</p>
+            <span id="count-English">0 files</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI CHAT ================= -->
+
+<section id="ai-chat" class="section-card">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">STUDY ASSISTANT</span>
+            <h2>✦ AI Study Chat</h2>
+            <p>Ask questions and get help with your studies.</p>
+        </div>
+    </div>
+
+
+    <div class="ai-chat-box">
+
+        <div id="chatMessages" class="chat-messages">
+
+            <div class="chat-message assistant-message">
+                <strong>StudyFlow AI</strong>
+                <p>
+                    Hi! 👋 I'm your StudyFlow study assistant.
+                    Ask me a question about your studies.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="chat-input-area">
+
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="Ask a study question..."
+                onkeydown="handleChatKey(event)"
+            >
+
+            <button
+                type="button"
+                class="primary-button"
+                onclick="sendAIMessage()"
+            >
+                Send ➤
+            </button>
+
+        </div>
+
+        <p class="chat-note">
+            AI Chat requires an AI backend/API connection to provide live AI answers.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section id="settings" class="section-card settings-section">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">CUSTOMIZE</span>
+            <h2>⚙️ Settings</h2>
+            <p>Customize your StudyFlow experience.</p>
+        </div>
+    </div>
+
+
+    <div class="settings-card">
+
+        <div class="setting-item">
+
+            <div class="setting-info">
+                <h3>🌙 Dark Mode</h3>
+                <p>Keep the premium dark StudyFlow theme.</p>
+            </div>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="darkModeToggle"
+                    checked
+                    onchange="toggleDarkMode()"
+                >
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <div class="setting-item">
+
+            <div class="setting-info">
+                <h3>🔔 Study Notifications</h3>
+                <p>Get browser notifications when study sessions finish.</p>
+            </div>
+
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="notificationToggle"
+                    onchange="toggleNotifications()"
+                >
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <div class="setting-item danger-setting">
+
+            <div class="setting-info">
+                <h3>🗑️ Reset App Data</h3>
+                <p>Delete your tasks, timetable, study time and saved files.</p>
+            </div>
+
+            <button
+                type="button"
+                class="settings-button danger"
+                onclick="resetStudyFlow()"
+            >
+                Reset Data
+            </button>
+
+        </div>
+
+
+        <div id="settingsMessage" class="settings-message"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= SUBJECT MODAL ================= -->
+
+<div id="subjectModal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            type="button"
+            class="modal-close"
+            onclick="closeSubject()"
+        >
+            ×
+        </button>
+
+        <div class="modal-header">
+
+            <div id="modalSubjectIcon" class="modal-subject-icon">
+                📚
+            </div>
+
+            <div>
+                <h2 id="modalSubjectName">Subject</h2>
+                <p id="modalFileCount">0 files</p>
+            </div>
+
+        </div>
+
+
+        <div class="file-upload-area">
+
+            <input
+                type="file"
+                id="studyFileInput"
+                hidden
+                onchange="handleFileUpload(event)"
+            >
+
+            <button
+                type="button"
+                class="primary-button"
+                onclick="uploadStudyFile()"
+            >
+                📤 Upload Study File
+            </button>
+
+        </div>
+
+
+        <div class="file-search">
+
+            <input
+                type="text"
+                id="studyFileSearch"
+                placeholder="🔎 Search study files..."
+                oninput="searchStudyFiles()"
+            >
+
+        </div>
+
+
+        <div id="subjectFiles" class="subject-files">
+
+            <div class="empty-state">
+                <span>📂</span>
+                <p>No files uploaded yet.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    <div class="footer-logo">✦ StudyFlow</div>
+    <p>Learn • Focus • Grow</p>
+    <small>StudyFlow v1.0</small>
+</footer>
+
+
+<!-- ================= SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const SUPABASE_URL =
+        "https://xhtbeosrycbzwqpwfsos.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_vXqF2_g39FkuJWTGYX5U0Q_4c8zXTyp";
+
+    let supabaseClient = null;
+
+    try {
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+        }
+    } catch (error) {
+        console.warn("Supabase unavailable:", error);
+    }
+</script>
+<script>
+    async function protectStudyFlow() {
+        try {
+            if (!supabaseClient) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            const { data, error } =
+                await supabaseClient.auth.getSession();
+
+            if (error || !data.session) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            console.log("StudyFlow login verified.");
+        } catch (error) {
+            console.error("Login check failed:", error);
+            window.location.replace("login.html");
+        }
+    }
+
+    protectStudyFlow();
+</script>
+<!-- MAIN JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
